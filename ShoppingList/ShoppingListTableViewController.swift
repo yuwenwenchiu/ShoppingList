@@ -51,7 +51,7 @@ class ShoppingListTableViewController: UITableViewController {
         
         let okAction = UIAlertAction(title: "OK", style: .default) {
             // 按下 OK 之後要執行的動作
-            (ok: UIAlertAction) in
+            (okAction: UIAlertAction) in
             
             // 如果可以取得 textField 的值
             if let inputText = alert.textFields?[0].text {
@@ -107,21 +107,21 @@ class ShoppingListTableViewController: UITableViewController {
         
         let editAction = UITableViewRowAction(style: .default, title: "Edit") {
             // 按下 Edit 之後要執行的動作
-            (edit: UITableViewRowAction, indexPath: IndexPath) in
+            (editAction: UITableViewRowAction, indexPath: IndexPath) in
             self.popUpAlert(itemText: self.shoppingItems[indexPath.row], indexPath: indexPath)
         }
         editAction.backgroundColor = .gray
         
         let deleteAction = UITableViewRowAction(style: .default, title: "Delete") {
             // 按下 Delete 之後要執行的動作
-            (delete: UITableViewRowAction, indexPath: IndexPath) in
+            (deleteAction: UITableViewRowAction, indexPath: IndexPath) in
             self.shoppingItems.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
             self.saveList()
         }
         deleteAction.backgroundColor = .red
         
-        return [editAction, deleteAction]
+        return [deleteAction, editAction]
         
     }
     
