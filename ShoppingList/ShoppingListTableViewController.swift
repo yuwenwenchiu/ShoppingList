@@ -10,31 +10,47 @@ import UIKit
 
 class ShoppingListTableViewController: UITableViewController {
     
-    var shoppingItems = [String]()
+    var shoppingItems = [Item]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadList()
         
+        loadList()
     }
     
     func saveList() {
         
-        UserDefaults.standard.set(shoppingItems, forKey: "list")
+        let shoppingItemsDic = shoppingItems.map { (Item) -> [String: Any] in
+
+            return ["itemName": Item.itemName , "done": Item.done]
+        }
+        
+        UserDefaults.standard.set(shoppingItemsDic, forKey: "list")
         
     }
     
     func loadList() {
         
-        if let okList = UserDefaults.standard.stringArray(forKey: "list") {
-            shoppingItems = okList
+        if let okList = UserDefaults.standard.array(forKey: "list") as? [[String: Any]] {
+            
+            shoppingItems = []
+            
+            for okItem in okList {
+                
+                let itemName = okItem["itemName"] as? String ?? ""
+                let done = okItem["done"] as? Bool ?? false
+                
+                shoppingItems.append(Item(itemName: itemName, done: done))
+                
+            }
+            
         }
         
     }
     
     func popUpAlert(itemText: String?, indexPath: IndexPath?) {
         
-        var alertTitle = String()
+        let alertTitle: String
         
         if itemText == nil {
             alertTitle = "Add New Item"
@@ -59,14 +75,14 @@ class ShoppingListTableViewController: UITableViewController {
                 // 新增的情況
                 if itemText == nil {
                     
-                    self.shoppingItems.append(inputText)
+                    self.shoppingItems.append(Item(itemName: inputText, done: false))
                     self.tableView.insertRows(at: [IndexPath(row: self.shoppingItems.count - 1, section: 0)], with: .automatic)
                     self.saveList()
                 
                 // 修改的情況
                 } else {
                     
-                    self.shoppingItems[indexPath!.row] = inputText
+                    self.shoppingItems[indexPath!.row].itemName = inputText
                     self.saveList()
                     self.tableView.reloadData()
                     
@@ -97,7 +113,13 @@ class ShoppingListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
-        cell.textLabel?.text = shoppingItems[indexPath.row]
+        cell.textLabel?.text = shoppingItems[indexPath.row].itemName
+        
+        if shoppingItems[indexPath.row].done == true {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
+        }
         
         return cell
         
@@ -108,7 +130,7 @@ class ShoppingListTableViewController: UITableViewController {
         let editAction = UITableViewRowAction(style: .default, title: "Edit") {
             // 按下 Edit 之後要執行的動作
             (editAction: UITableViewRowAction, indexPath: IndexPath) in
-            self.popUpAlert(itemText: self.shoppingItems[indexPath.row], indexPath: indexPath)
+            self.popUpAlert(itemText: self.shoppingItems[indexPath.row].itemName, indexPath: indexPath)
         }
         editAction.backgroundColor = .gray
         
@@ -129,12 +151,19 @@ class ShoppingListTableViewController: UITableViewController {
         
         let cell = tableView.cellForRow(at: indexPath)!
         
-        if cell.accessoryType == .none {
+        if shoppingItems[indexPath.row].done == false {
+            
             cell.accessoryType = .checkmark
+            shoppingItems[indexPath.row].done = true
+            
         } else {
+            
             cell.accessoryType = .none
+            shoppingItems[indexPath.row].done = false
+            
         }
         
+        saveList()
         tableView.reloadData()
         
     }

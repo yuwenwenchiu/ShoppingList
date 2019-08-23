@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8108CB91230FD4260012276F /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8108CB90230FD4260012276F /* Item.swift */; };
 		81B814B3230BCDD4009530CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B814B2230BCDD4009530CF /* AppDelegate.swift */; };
 		81B814B8230BCDD4009530CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81B814B6230BCDD4009530CF /* Main.storyboard */; };
 		81B814BA230BCDD6009530CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81B814B9230BCDD6009530CF /* Assets.xcassets */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8108CB90230FD4260012276F /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		81B814AF230BCDD4009530CF /* ShoppingList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81B814B2230BCDD4009530CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81B814B7230BCDD4009530CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 				81B814B2230BCDD4009530CF /* AppDelegate.swift */,
 				81B814B6230BCDD4009530CF /* Main.storyboard */,
 				81B814C4230BCFBC009530CF /* ShoppingListTableViewController.swift */,
+				8108CB90230FD4260012276F /* Item.swift */,
 				81B814B9230BCDD6009530CF /* Assets.xcassets */,
 				81B814BB230BCDD6009530CF /* LaunchScreen.storyboard */,
 				81B814BE230BCDD6009530CF /* Info.plist */,
@@ -136,6 +139,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81B814B3230BCDD4009530CF /* AppDelegate.swift in Sources */,
+				8108CB91230FD4260012276F /* Item.swift in Sources */,
 				81B814C5230BCFBC009530CF /* ShoppingListTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
